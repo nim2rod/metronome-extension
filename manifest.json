@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Metronome",
+    "version": "1.5",
+    "description": "A simple metronome extension",
+    "action": {
+        "default_icon": "./live-music.png",
+        "default_title": "Metronome"
+    },
+    "background": {
+        "service_worker": "background.js"
+    }
+}

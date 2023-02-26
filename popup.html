@@ -5,27 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>popup2</title>
+    <title>metronome</title>
     <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
-    <div id="controls">
-        <button id="minus" value="minus">-</button>
-        <div class="bpm-show"></div>
+
+    <div class="cont-1">
+        <img id="start" src="./icons/play.png" alt="">
+        <img id="stop" src="./icons/pause-button.png" alt="">
+    </div>
+    <div class="cont-2">
+        <div class="bpm-cont">
+            <div class="bpm-show"></div>
+            <div class="bpm-controls">
+                <button id="minus" value="minus">-</button>
+                <button id="plus" value="plus">+</button>
+            </div>
+        </div>
+        <div class="volume-controls">
+            <button id="volumeUp" value="up">volume + </button>
+            <button id="volumeDown" value="down">volume <br> - </button>
+        </div>
+    </div>
+    <div class="cont-3">
         <input type="range" id="bpm" value="120" min="20" max="300" step="1">
-        <button id="plus" value="plus">+</button>
-        <button id="start">Start</button>
-        <button id="stop">Stop</button>
-    </div>
-    <div>
-        <button id="volumeUp" value="up">volume + </button>
-        <button id="volumeDown" value="down">volume - </button>
-    </div>
-    <div>
-        <button id="sound1" value="drum">drum stick</button>
-        <button id="sound2" value="cowbell">cowbell</button>
-        <button id="sound3" value="wood">wood</button>
+        <div class="sound-container">
+            <button id="sound1" value="drum">drum stick</button>
+            <button id="sound2" value="cowbell">cowbell</button>
+            <button id="sound3" value="wood">wood</button>
+        </div>
     </div>
 
     <script src="popup.js"></script>

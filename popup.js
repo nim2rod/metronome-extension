@@ -61,10 +61,14 @@ function soundChange(ev) {
     if (sound === 'wood') click = './sound/click.wav'
 }
 
+function log() {
+    console.log('asdfafasfsf')
+}
 
 document.getElementById('start').addEventListener('click', start);
 document.getElementById('stop').addEventListener('click', stop);
-document.getElementById('bpm').addEventListener('change', start);
+// document.getElementById('bpm').addEventListener('change', start);
+document.getElementById('bpm').addEventListener('input', start);
 document.getElementById('minus').addEventListener('click', bpmChange);
 document.getElementById('plus').addEventListener('click', bpmChange);
 document.getElementById('volumeUp').addEventListener('click', volumeChange);

@@ -1,18 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Metronome</title>
-    <link rel="stylesheet" type="text/css" href="popup.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>popup2</title>
+    <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
     <div id="controls">
-        <input type="number" id="bpm" value="120" min="20" max="300" step="1">
         <p id="minus">-</p>
+        <input type="number" id="bpm" value="120" min="20" max="300" step="1">
         <p id="plus">+</p>
         <button id="start">Start</button>
         <button id="stop">Stop</button>
+    </div>
+    <div>
+        <button id="volumeUp" value="plus">volume + </button>
+        <button id="volumeDown" value="minus">volume - </button>
+    </div>
+    <div>
+        <button id="sound1" value="drum">drum stick</button>
+        <button id="sound2" value="cowbell">cowbell</button>
+        <button id="sound3" value="wood">wood</button>
     </div>
 
     <script src="popup.js"></script>

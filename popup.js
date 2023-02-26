@@ -6,6 +6,7 @@ let click = "./sound/click.wav"
 console.log('popup.js go!')
 
 function start() {
+    document.querySelector('.bpm-show').innerHTML = document.getElementById("bpm").value
     console.log('start')
     clearInterval(intervalId);
     bpm = parseInt(document.getElementById("bpm").value);
@@ -23,26 +24,29 @@ function playClick() {
     audio.play();
 }
 
-function plus() {
-    document.getElementById("bpm").value++
-    start()
-}
 
-function minus() {
-    document.getElementById("bpm").value--
+function bpmChange(ev) {
+    const val = ev.target.value
+    if (val === 'plus') {
+        document.getElementById("bpm").value++
+    }
+    if (val === 'minus') {
+        document.getElementById("bpm").value--
+    }
+
     start()
 }
 
 function volumeChange(ev) {
     const val = ev.target.value
     console.log('val', val)
-    if (val === 'plus') {
+    if (val === 'up') {
         console.log('up');
         if (volume >= 1) return
         else volume += 0.1
         console.log('volume', volume)
     }
-    if (val === 'minus') {
+    if (val === 'down') {
         if (volume <= 0.3) return
         else volume -= 0.1
         console.log('volume', volume)
@@ -61,15 +65,15 @@ function soundChange(ev) {
 document.getElementById('start').addEventListener('click', start);
 document.getElementById('stop').addEventListener('click', stop);
 document.getElementById('bpm').addEventListener('change', start);
-document.getElementById('minus').addEventListener('click', minus);
-document.getElementById('plus').addEventListener('click', plus);
+document.getElementById('minus').addEventListener('click', bpmChange);
+document.getElementById('plus').addEventListener('click', bpmChange);
 document.getElementById('volumeUp').addEventListener('click', volumeChange);
 document.getElementById('volumeDown').addEventListener('click', volumeChange);
 document.getElementById('sound1').addEventListener('click', soundChange);
 document.getElementById('sound2').addEventListener('click', soundChange);
 document.getElementById('sound3').addEventListener('click', soundChange);
 
-
+document.querySelector('.bpm-show').innerHTML = document.getElementById("bpm").value
 
 
 

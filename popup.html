@@ -11,15 +11,16 @@
 
 <body>
     <div id="controls">
-        <p id="minus">-</p>
-        <input type="number" id="bpm" value="120" min="20" max="300" step="1">
-        <p id="plus">+</p>
+        <button id="minus" value="minus">-</button>
+        <div class="bpm-show"></div>
+        <input type="range" id="bpm" value="120" min="20" max="300" step="1">
+        <button id="plus" value="plus">+</button>
         <button id="start">Start</button>
         <button id="stop">Stop</button>
     </div>
     <div>
-        <button id="volumeUp" value="plus">volume + </button>
-        <button id="volumeDown" value="minus">volume - </button>
+        <button id="volumeUp" value="up">volume + </button>
+        <button id="volumeDown" value="down">volume - </button>
     </div>
     <div>
         <button id="sound1" value="drum">drum stick</button>

@@ -1,5 +1,11 @@
 # metronome-extension
 
+## what it can do?
+- Volume control
+- Choose from different types of click sounds. 
+- Choose tempo by scroll/+/- buttons
+- Stay open in a popup window
+
 Link to chrome store:
 https://chrome.google.com/webstore/detail/metronome/dkinffgfkmaomdckkphdjiempkeapekn?hl=iw&authuser=0
 

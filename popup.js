@@ -11,7 +11,10 @@ let beatCount = 1
 let holdFirstBeat = true
 
 document.addEventListener('keydown', function (event) {
+    console.log('event.code: ', event.code)
     if (event.code === 'Space') {
+        let trackName = document.getElementById("input-song").value
+        if (trackName) return
         if (playIsOn) {
             stop();
             playIsOn = false;
@@ -24,6 +27,8 @@ document.addEventListener('keydown', function (event) {
     if (event.code === 'Enter') addSong()
     if (event.code === 'ArrowUp') volumeChange('up')
     if (event.code === 'ArrowDown') volumeChange('down')
+    if (event.code === 'ArrowRight') bpmChange('plus')
+    if (event.code === 'ArrowLeft') bpmChange('minus')
 });
 
 init()
@@ -75,7 +80,10 @@ function moveBpmRange() {
 }
 
 function bpmChange(ev) {
-    const val = ev.target.value
+    let val = null
+    if (ev === 'plus') val = 'plus'
+    else if (ev === 'minus') val = 'minus'
+    else val = ev.target.value
     if (val === 'plus') {
         document.getElementById("bpm").value++
         if (GlobalSong.songName) GlobalSong.bpm++

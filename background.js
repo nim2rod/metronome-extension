@@ -8,7 +8,7 @@ chrome.action.onClicked.addListener((tab) => {
             url: chrome.runtime.getURL("popup.html"),
             type: "popup",
             width: 300,
-            height: 250,
+            height: 400,
             left: 900
         }, (window) => {
             popupWindowId = window.id;

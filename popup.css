@@ -2,7 +2,7 @@ body {
     font-family: auto;
     padding: 8px;
     margin: 0;
-    background-color: rgb(239 235 238);
+    background-color: #9dddfc57;
     text-align-last: center;
 }
 
@@ -13,16 +13,24 @@ img {
 
 button {
     font-size: 1.3em;
-    color: #eef9f8;
-    background-color: #d3a2bd;
+    color: white;
+    background-color: #b6d3e7;
+    ;
     border: none;
     margin: 0.5px;
     border-radius: 3px;
     cursor: pointer;
 }
 
+.btn {
+    cursor: pointer;
+}
+
 .cont-1 {
     padding: 0.5em;
+    display: flex;
+    justify-content: center;
+    gap: 49px;
 }
 
 .cont-2 {
@@ -36,10 +44,15 @@ button {
 }
 
 .bpm-show {
-    border: solid 1px #d4bfbf;
-    height: 70%;
+    border: solid 1px #b6d3e7;
+    height: 47px;
     font-size: 3.5em;
     border-radius: 4px;
+    color: #355d76;
+}
+
+.bpm-controls {
+    margin-top: 5px;
 }
 
 .bpm-controls button {
@@ -49,22 +62,109 @@ button {
 .volume-controls {
     display: flex;
     flex-direction: column;
-    width: 25%;
-    font-size: 0.9em;
+    font-size: 0.7em;
+    margin-left: 16px;
+    gap: 3px;
 }
 
 .volume-controls button {
     height: -webkit-fill-available;
 }
 
+.sound-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.4em;
+}
+
+.sound {
+    height: 2.6em;
+}
+
 .cont-3 {
     padding: 0.5em;
+    display: flex;
+    justify-content: center;
 }
 
 .cont-3 input {
     -webkit-appearance: none;
     height: 3px;
-    background-color: #d3a2bd;
+    background-color: #b6d3e7;
     margin-bottom: 15px;
     border-radius: 3px;
+}
+
+.divide-box {
+    margin-left: 25px;
+    display: grid;
+    align-content: center;
+    grid-gap: 7px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.divide-box span {
+    width: 15px;
+    cursor: pointer;
+}
+
+.divide-box span.active {
+    background-color: #b6d3e7;
+    border-radius: 3px;
+    color: white;
+}
+
+.input-song {
+    border-style: none;
+    border-radius: 0.4em;
+    color: #355d76;
+    font-size: 1.2em;
+    margin-top: 5px;
+}
+
+.input-song::placeholder {
+    color: #678699;
+    text-align-last: start;
+}
+
+.input-song:focus {
+    outline: none;
+}
+
+.list {
+    text-align: -webkit-center;
+    margin-top: 10px;
+}
+
+.song {
+    background-color: #d3a2bd;
+    color: aquamarine;
+}
+
+.song-line {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px;
+    width: 75%;
+    margin-bottom: 7px;
+    font-size: 1.4em;
+    padding: 3px;
+    font-family: serif;
+    text-transform: capitalize;
+    background-color: #b6d3e7bf;
+    color: white;
+}
+
+.song-line.selected {
+    background-color: #b8b8ee;
+}
+
+.song-line-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.delete-song {
+    height: 0.8em;
 }

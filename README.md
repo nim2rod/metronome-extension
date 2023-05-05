@@ -27,4 +27,7 @@ Enjoy and let's Rock! 🤟
 Link to chrome store:
 https://chrome.google.com/webstore/detail/metronome/dkinffgfkmaomdckkphdjiempkeapekn?hl=iw&authuser=0
 
-![met-screenshot](https://user-images.githubusercontent.com/106229019/221697414-ea75c004-b95e-4059-906c-ac293949d6a9.png)
+![met-SS-640*400](https://user-images.githubusercontent.com/106229019/236395324-d26d5df2-1b92-4855-b199-73136118c83b.png)
+
+![met-screenshot](https://user-images.githubusercontent.com/106229019/236395362-736f8fb2-b624-43c3-91a9-4434bc82ed33.png)
+

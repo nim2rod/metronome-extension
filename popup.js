@@ -9,6 +9,9 @@ let songsFromStorage = []
 let division = 1
 let beatCount = 1
 let holdFirstBeat = true
+let silentBitCount = 4 * division
+let silentBeatNum = 1
+let silentBeatMode = false
 
 document.addEventListener('keydown', function (event) {
     console.log('event.code: ', event.code)
@@ -41,6 +44,10 @@ function init() {
 }
 
 function start() {
+    if (silentBeatMode) {
+        silentBitCount = 4 * division
+        silentBeatNum = 1
+    }
     beatCount = 1
     const bpmInit = document.getElementById("bpm").value
     document.querySelector('.bpm-show').innerHTML = bpmInit
@@ -59,6 +66,20 @@ function stop() {
 
 function playClick() {
     let audio = null
+    if (silentBeatMode && silentBitCount <= silentBeatNum && silentBitCount !== 1) {
+        beatCount++
+        if (beatCount === division + 1) beatCount = 1
+        silentBitCount--
+        return
+    }
+    if (silentBeatMode && silentBitCount === 1) {
+        (silentBeatNum === division * 4) ? silentBeatNum = 1 : silentBeatNum++
+
+        silentBitCount = 4 * division  // 4 * 2 = 8 
+        beatCount++
+        if (beatCount === division + 1) beatCount = 1
+        return
+    }
     if (division === 1 || beatCount === 1) { //primary
         audio = new Audio(primaryClick)
     } else {                                   // secondery
@@ -67,6 +88,7 @@ function playClick() {
     audio.volume = volume
     audio.play();
     beatCount++
+    if (silentBeatMode) silentBitCount--
     if (beatCount === division + 1) beatCount = 1
 }
 
@@ -238,6 +260,13 @@ document.getElementById('plus').addEventListener('click', bpmChange);
 document.getElementById('volumeUp').addEventListener('click', volumeChange);
 document.getElementById('volumeDown').addEventListener('click', volumeChange);
 document.getElementById('add-song').addEventListener('click', addSong);
+document.getElementById('silent-mode').addEventListener('click', () => {
+    silentBeatMode = !silentBeatMode
+    if (silentBeatMode) document.querySelector('.silent-mode').classList.add('active')
+    else document.querySelector('.silent-mode').classList.remove('active')
+    start()
+})
+
 const sounds = document.querySelectorAll('.sound');
 sounds.forEach(sound => {
     sound.addEventListener('click', soundChange);

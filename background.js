@@ -1,15 +1,16 @@
 let popupWindowId;
-console.log('background page - metronome!');
+console.log('background page - metronome!')
 
 chrome.action.onClicked.addListener((tab) => {
-    console.log('add event ')
+    console.log('tab: ', tab)
+    console.log('add event (: ) ')
     if (!popupWindowId) {
         chrome.windows.create({
             url: chrome.runtime.getURL("popup.html"),
             type: "popup",
-            width: 300,
+            width: 320,
             height: 400,
-            left: 900
+            left: 900,
         }, (window) => {
             popupWindowId = window.id;
         });

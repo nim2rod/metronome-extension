@@ -12,6 +12,9 @@ let holdFirstBeat = true
 let silentBitCount = 4 * division
 let silentBeatNum = 1
 let silentBeatMode = false
+//
+let primaryClickAudio, secondaryClickAudio
+//
 
 document.addEventListener('keydown', function (event) {
     console.log('event.code: ', event.code)
@@ -36,6 +39,8 @@ document.addEventListener('keydown', function (event) {
 
 init()
 function init() {
+    audio = new Audio(primaryClick)
+
     const data = getFromLocal()
     if (data && data.length) {
         songsFromStorage = data
@@ -194,6 +199,7 @@ function renderSongs(songs) {
         <img id="delete-song" class="delete-song btn" src="./icons/x-mark.png" alt="" data-value="stick">
         </span></div>
         `
+        // <i id="delete-song" class="material-icons delete-song btn">delete</i>
     })
 
     const songLines = document.querySelectorAll('#song-line');

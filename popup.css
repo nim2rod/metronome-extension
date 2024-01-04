@@ -1,8 +1,9 @@
 body {
     font-family: auto;
-    padding: 8px;
+    padding: 7px;
     margin: 0;
-    background-color: #9dddfc57;
+    /* background-color: #9dddfc57; */
+    background-color: #cae3ef57;
     text-align-last: center;
 }
 
@@ -14,8 +15,8 @@ img {
 button {
     font-size: 1.3em;
     color: white;
-    background-color: #b6d3e7;
-    ;
+    /* background-color: #b6d3e7; */
+    background-color: #3e7b9e;
     border: none;
     margin: 0.5px;
     border-radius: 3px;

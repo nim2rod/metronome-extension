@@ -196,10 +196,10 @@ function renderSongs(songs) {
         <div id="song-line" class="song-line btn">
         <span id="song-name" class="song-name">${song.songName}</span>
         <span class="song-line-right"><span id="song-bpm" class="song-bpm">${song.bpm}</span> 
-        <img id="delete-song" class="delete-song btn" src="./icons/x-mark.png" alt="" data-value="stick">
+        <i id="delete-song" class="material-icons delete-song btn">delete</i>
         </span></div>
         `
-        // <i id="delete-song" class="material-icons delete-song btn">delete</i>
+        // <img id="delete-song" class="delete-song btn" src="./icons/x-mark.png" alt="" data-value="stick">
     })
 
     const songLines = document.querySelectorAll('#song-line');
@@ -272,7 +272,7 @@ document.getElementById('silent-mode').addEventListener('click', () => {
     else document.querySelector('.silent-mode').classList.remove('active')
     start()
 })
-//
+// input song change color of + button  
 document.addEventListener('DOMContentLoaded', function () {
     var input = document.getElementById('input-song');
     var addButton = document.getElementById('add-song');
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 })
-//
+
 
 const sounds = document.querySelectorAll('.sound');
 sounds.forEach(sound => {

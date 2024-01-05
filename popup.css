@@ -193,6 +193,16 @@ button {
     align-items: center;
 }
 
+.song-line-right i {
+    display: flex;
+    align-items: center;
+}
+
 .delete-song {
     height: 0.8em;
+}
+
+.delete-song:hover {
+    /* color: #355d76; */
+    color: #3e7b9e
 }

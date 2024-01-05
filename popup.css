@@ -88,6 +88,13 @@ button {
     justify-content: center;
 }
 
+.input-cont {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: baseline;
+}
+
 .cont-3 input {
     -webkit-appearance: none;
     height: 3px;
@@ -119,8 +126,9 @@ button {
     border-style: none;
     border-radius: 0.4em;
     color: #355d76;
-    font-size: 1.2em;
+    font-size: 1.3em;
     margin-top: 5px;
+    width: 113px;
 }
 
 .input-song::placeholder {

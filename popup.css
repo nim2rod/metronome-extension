@@ -92,7 +92,9 @@ button {
     display: flex;
     gap: 8px;
     justify-content: center;
-    align-items: baseline;
+    /* align-items: baseline; */
+    align-items: normal;
+    margin-top: 3px;
 }
 
 .cont-3 input {
@@ -127,7 +129,7 @@ button {
     border-radius: 0.4em;
     color: #355d76;
     font-size: 1.3em;
-    margin-top: 5px;
+    /* margin-top: 5px; */
     width: 113px;
 }
 
@@ -138,6 +140,23 @@ button {
 
 .input-song:focus {
     outline: none;
+}
+
+.add-song {
+    background-color: #b6d3e7bf;
+}
+
+.add-song.active {
+    background-color: #b8b8ee;
+}
+
+.silent-mode {
+    background-color: #b6d3e7bf;
+}
+
+.silent-mode.active {
+    color: #4c4c4c;
+    background-color: #b8b8ee;
 }
 
 .list {
@@ -176,8 +195,4 @@ button {
 
 .delete-song {
     height: 0.8em;
-}
-
-.silent-mode.active {
-    color: #4c4c4c;
 }

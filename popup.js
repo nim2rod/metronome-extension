@@ -272,6 +272,20 @@ document.getElementById('silent-mode').addEventListener('click', () => {
     else document.querySelector('.silent-mode').classList.remove('active')
     start()
 })
+//
+document.addEventListener('DOMContentLoaded', function () {
+    var input = document.getElementById('input-song');
+    var addButton = document.getElementById('add-song');
+
+    input.addEventListener('input', function () {
+        if (input.value.trim() !== '') {
+            addButton.classList.add('active');
+        } else {
+            addButton.classList.remove('active');
+        }
+    });
+})
+//
 
 const sounds = document.querySelectorAll('.sound');
 sounds.forEach(sound => {

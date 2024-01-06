@@ -15,9 +15,11 @@ let silentBeatMode = false
 //
 let primaryClickAudio, secondaryClickAudio
 //
+let isArrowUpPressed = false;
+let isArrowDownPressed = false;
 
 document.addEventListener('keydown', function (event) {
-    console.log('event.code: ', event.code)
+    // console.log('event.code: ', event.code)
     if (event.code === 'Space') {
         let trackName = document.getElementById("input-song").value
         if (trackName) return
@@ -31,11 +33,34 @@ document.addEventListener('keydown', function (event) {
         event.preventDefault(); // prevent default space key behavior (scrolling)
     }
     if (event.code === 'Enter') addSong()
-    if (event.code === 'ArrowUp') volumeChange('up')
-    if (event.code === 'ArrowDown') volumeChange('down')
+    if (event.code === 'ArrowUp') {
+        if (!isArrowUpPressed) {
+            changeClass('volumeUp', 'add', 'isArrowUpPressed', true)
+        }
+        volumeChange('up', 'fromKeyboard')
+    }
+    if (event.code === 'ArrowDown') {
+        if (!isArrowDownPressed) {
+            changeClass('volumeDown', 'add', 'isArrowDownPressed', true)
+        }
+        volumeChange('down', 'fromKeyboard')
+    }
     if (event.code === 'ArrowRight') bpmChange('plus')
     if (event.code === 'ArrowLeft') bpmChange('minus')
-});
+})
+
+document.addEventListener('keyup', function (event) {
+    if (event.code === 'ArrowUp') {
+        changeClass('volumeUp', 'remove', 'isArrowUpPressed', false)
+    } else if (event.code === 'ArrowDown') {
+        changeClass('volumeDown', 'remove', 'isArrowDownPressed', false)
+    }
+})
+
+function changeClass(id, action, flag, boolean) {
+    document.getElementById(id).classList[action]('btn-active')
+    window[flag] = boolean
+}
 
 init()
 function init() {
@@ -61,12 +86,24 @@ function start() {
     bpm = bpm * division
     intervalId = setInterval(playClick, (60 / bpm) * 1000);
     playIsOn = true
+    //
+    let playIcon = document.getElementById('start');
+    let stopIcon = document.getElementById('stop');
+    playIcon.classList.add('metronome-play', 'pulsing');
+    stopIcon.classList.remove('metronome-play', 'pulsing');
+    //
 }
 
 function stop() {
     clearInterval(intervalId);
     playIsOn = false
     beatCount = 1
+    //
+    let playIcon = document.getElementById('start');
+    let stopIcon = document.getElementById('stop');
+    stopIcon.classList.add('metronome-play', 'pulsing');
+    playIcon.classList.remove('metronome-play', 'pulsing');
+    //
 }
 
 function playClick() {
@@ -167,7 +204,7 @@ function addSong() {
     if (!trackName) return
     const checkIfUniq = songsFromStorage.find((song) => song.songName === trackName)
     if (checkIfUniq) {
-        document.querySelector('.input-song').value = ``
+        removeClass()
         return
     }
 
@@ -177,8 +214,13 @@ function addSong() {
     songsFromStorage.push(copyGlobal)
     setToLocal(songsFromStorage)
     renderSongs(songsFromStorage)
+    removeClass()
+}
 
+function removeClass() {
     document.querySelector('.input-song').value = ``
+    let addButton = document.getElementById('add-song')
+    addButton.classList.remove('active')
 }
 
 function pickNewSong(bpm, trackName) {
@@ -278,6 +320,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var addButton = document.getElementById('add-song');
 
     input.addEventListener('input', function () {
+        console.log('input event')
         if (input.value.trim() !== '') {
             addButton.classList.add('active');
         } else {

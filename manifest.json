@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Metronome",
-    "version": "2.2",
+    "version": "2.5",
     "description": "metronome extension",
     "icons": {
         "16": "./icons/metronome2.png",

@@ -65,6 +65,8 @@ function changeClass(id, action, flag, boolean) {
 init()
 function init() {
     audio = new Audio(primaryClick)
+    let stopIcon = document.getElementById('stop');
+    stopIcon.style.display = `none`
 
     const data = getFromLocal()
     if (data && data.length) {
@@ -89,22 +91,33 @@ function start() {
     bpm = bpm * division
     intervalId = setInterval(playClick, (60 / bpm) * 1000);
     playIsOn = true
-    //
-    let playIcon = document.getElementById('start');
-    playIcon.style.animation = 'none';
-    playIcon.offsetWidth;
-    playIcon.style.animation = null;
 
-    playIcon.classList.add('metronome-play', 'pulsing');
-    playIcon.style.animationDuration = `${beatDurationInSec}s`
+    let stopIcon = document.getElementById('stop');
+
+    changePlayPauseBtn('play')
+
+    stopIcon.style.animation = 'none';
+    stopIcon.offsetWidth;
+    stopIcon.style.animation = null;
+
+    stopIcon.classList.add('metronome-play', 'pulsing');
+    stopIcon.style.animationDuration = `${beatDurationInSec}s`
 }
 
 function stop() {
     clearInterval(intervalId);
     playIsOn = false
     beatCount = 1
+
+    changePlayPauseBtn('stop')
+    // playIcon.classList.remove('metronome-play', 'pulsing');
+}
+
+function changePlayPauseBtn(state) { /// play / [stop] 
     let playIcon = document.getElementById('start');
-    playIcon.classList.remove('metronome-play', 'pulsing');
+    let stopIcon = document.getElementById('stop');
+    stopIcon.style.display = state === 'play' ? `inline` : `none`
+    playIcon.style.display = state === 'stop' ? `inline` : `none`  // 
 }
 
 function playClick() {

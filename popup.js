@@ -83,27 +83,28 @@ function start() {
     document.querySelector('.bpm-show').innerHTML = bpmInit
     clearInterval(intervalId);
     bpm = parseInt(bpmInit);
+    ///
+    let beatDurationInSec = 60 / bpm
+    //
     bpm = bpm * division
     intervalId = setInterval(playClick, (60 / bpm) * 1000);
     playIsOn = true
     //
     let playIcon = document.getElementById('start');
-    let stopIcon = document.getElementById('stop');
+    playIcon.style.animation = 'none';
+    playIcon.offsetWidth;
+    playIcon.style.animation = null;
+
     playIcon.classList.add('metronome-play', 'pulsing');
-    stopIcon.classList.remove('metronome-play', 'pulsing');
-    //
+    playIcon.style.animationDuration = `${beatDurationInSec}s`
 }
 
 function stop() {
     clearInterval(intervalId);
     playIsOn = false
     beatCount = 1
-    //
     let playIcon = document.getElementById('start');
-    let stopIcon = document.getElementById('stop');
-    stopIcon.classList.add('metronome-play', 'pulsing');
     playIcon.classList.remove('metronome-play', 'pulsing');
-    //
 }
 
 function playClick() {

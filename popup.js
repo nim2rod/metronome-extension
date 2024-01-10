@@ -1,47 +1,52 @@
 let intervalId;
-let volume = 1
-let primaryClick = "./sound/digit.wav"
-let seconderyClick = "./sound/digit-up.wav"
 
-let playIsOn = false;
+const soundSetting = {
+    volume: 1,
+    primaryClick: "./sound/digit.wav",
+    seconderyClick: "./sound/digit-up.wav",
+    playIsOn: false
+}
+
 let GlobalSong = { songName: null, bpm: null }
 let songsFromStorage = []
-let division = 1
-let beatCount = 1
-let holdFirstBeat = true
-let silentBitCount = 4 * division
-let silentBeatNum = 1
-let silentBeatMode = false
-//
-let primaryClickAudio, secondaryClickAudio
-//
-let isArrowUpPressed = false;
-let isArrowDownPressed = false;
+
+const divisionSetting = {
+    division: 1,
+    beatCount: 1,
+    silentBitCount: 4 * this.division,
+    silentBeatNum: 1,
+    silentBeatMode: false
+}
+
+const arrowsVolume = {
+    isArrowUpPressed: false,
+    isArrowDownPressed: false
+}
 
 document.addEventListener('keydown', function (event) {
     // console.log('event.code: ', event.code)
     if (event.code === 'Space') {
         let trackName = document.getElementById("input-song").value
         if (trackName) return
-        if (playIsOn) {
+        if (soundSetting.playIsOn) {
             stop();
-            playIsOn = false;
+            soundSetting.playIsOn = false;
         } else {
             start();
-            playIsOn = true;
+            soundSetting.playIsOn = true;
         }
         event.preventDefault(); // prevent default space key behavior (scrolling)
     }
     if (event.code === 'Enter') addSong()
     if (event.code === 'ArrowUp') {
-        if (!isArrowUpPressed) {
-            changeClass('volumeUp', 'add', 'isArrowUpPressed', true)
+        if (!arrowsVolume.isArrowUpPressed) {
+            changeClass('volumeUp', 'add', 'arrowsVolume.isArrowUpPressed', true)
         }
         volumeChange('up', 'fromKeyboard')
     }
     if (event.code === 'ArrowDown') {
-        if (!isArrowDownPressed) {
-            changeClass('volumeDown', 'add', 'isArrowDownPressed', true)
+        if (!arrowsVolume.isArrowDownPressed) {
+            changeClass('volumeDown', 'add', 'arrowsVolume.isArrowDownPressed', true)
         }
         volumeChange('down', 'fromKeyboard')
     }
@@ -51,9 +56,9 @@ document.addEventListener('keydown', function (event) {
 
 document.addEventListener('keyup', function (event) {
     if (event.code === 'ArrowUp') {
-        changeClass('volumeUp', 'remove', 'isArrowUpPressed', false)
+        changeClass('volumeUp', 'remove', 'arrowsVolume.isArrowUpPressed', false)
     } else if (event.code === 'ArrowDown') {
-        changeClass('volumeDown', 'remove', 'isArrowDownPressed', false)
+        changeClass('volumeDown', 'remove', 'arrowsVolume.isArrowDownPressed', false)
     }
 })
 
@@ -64,53 +69,56 @@ function changeClass(id, action, flag, boolean) {
 
 init()
 function init() {
-    audio = new Audio(primaryClick)
+    audio = new Audio(soundSetting.primaryClick)
     let stopIcon = document.getElementById('stop');
     stopIcon.style.display = `none`
 
     const data = getFromLocal()
     if (data && data.length) {
         songsFromStorage = data
+        // songsFromStorage.push(...data)
         renderSongs(songsFromStorage)
     }
 }
 
 function start() {
-    if (silentBeatMode) {
-        silentBitCount = 4 * division
-        silentBeatNum = 1
+    if (divisionSetting.silentBeatMode) {
+        divisionSetting.silentBitCount = 4 * divisionSetting.division
+        divisionSetting.silentBeatNum = 1
     }
-    beatCount = 1
+    divisionSetting.beatCount = 1
     const bpmInit = document.getElementById("bpm").value
     document.querySelector('.bpm-show').innerHTML = bpmInit
     clearInterval(intervalId);
     bpm = parseInt(bpmInit);
-    ///
-    let beatDurationInSec = 60 / bpm
-    //
-    bpm = bpm * division
-    intervalId = setInterval(playClick, (60 / bpm) * 1000);
-    playIsOn = true
 
-    let stopIcon = document.getElementById('stop');
+    let beatDurationInSec = 60 / bpm
+
+    bpm = bpm * divisionSetting.division
+    intervalId = setInterval(playClick, (60 / bpm) * 1000);
+    soundSetting.playIsOn = true
 
     changePlayPauseBtn('play')
-
-    stopIcon.style.animation = 'none';
-    stopIcon.offsetWidth;
-    stopIcon.style.animation = null;
-
-    stopIcon.classList.add('metronome-play', 'pulsing');
-    stopIcon.style.animationDuration = `${beatDurationInSec}s`
+    handleAnimation(beatDurationInSec)
 }
 
 function stop() {
     clearInterval(intervalId);
-    playIsOn = false
-    beatCount = 1
+    soundSetting.playIsOn = false
+    divisionSetting.beatCount = 1
 
     changePlayPauseBtn('stop')
-    // playIcon.classList.remove('metronome-play', 'pulsing');
+}
+
+function handleAnimation(beatDuration) {
+    let stopIcon = document.getElementById('stop');
+    // move animation
+    stopIcon.style.animation = 'none';
+    stopIcon.offsetWidth;
+    stopIcon.style.animation = null;
+    // add animation
+    stopIcon.classList.add('metronome-play', 'pulsing');
+    stopIcon.style.animationDuration = `${beatDuration}s`
 }
 
 function changePlayPauseBtn(state) { /// play / [stop] 
@@ -122,30 +130,30 @@ function changePlayPauseBtn(state) { /// play / [stop]
 
 function playClick() {
     let audio = null
-    if (silentBeatMode && silentBitCount <= silentBeatNum && silentBitCount !== 1) {
-        beatCount++
-        if (beatCount === division + 1) beatCount = 1
-        silentBitCount--
+    if (divisionSetting.silentBeatMode && divisionSetting.silentBitCount <= divisionSetting.silentBeatNum && divisionSetting.silentBitCount !== 1) {
+        divisionSetting.beatCount++
+        if (divisionSetting.beatCount === divisionSetting.division + 1) divisionSetting.beatCount = 1
+        divisionSetting.silentBitCount--
         return
     }
-    if (silentBeatMode && silentBitCount === 1) {
-        (silentBeatNum === division * 4) ? silentBeatNum = 1 : silentBeatNum++
+    if (divisionSetting.silentBeatMode && divisionSetting.silentBitCount === 1) {
+        (divisionSetting.silentBeatNum === divisionSetting.division * 4) ? divisionSetting.silentBeatNum = 1 : divisionSetting.silentBeatNum++
 
-        silentBitCount = 4 * division  // 4 * 2 = 8 
-        beatCount++
-        if (beatCount === division + 1) beatCount = 1
+        divisionSetting.silentBitCount = 4 * divisionSetting.division  // 4 * 2 = 8 
+        divisionSetting.beatCount++
+        if (divisionSetting.beatCount === divisionSetting.division + 1) divisionSetting.beatCount = 1
         return
     }
-    if (division === 1 || beatCount === 1) { //primary
-        audio = new Audio(primaryClick)
+    if (divisionSetting.division === 1 || divisionSetting.beatCount === 1) { //primary
+        audio = new Audio(soundSetting.primaryClick)
     } else {                                   // secondery
-        audio = new Audio(seconderyClick);
+        audio = new Audio(soundSetting.seconderyClick);
     }
-    audio.volume = volume
+    audio.volume = soundSetting.volume
     audio.play();
-    beatCount++
-    if (silentBeatMode) silentBitCount--
-    if (beatCount === division + 1) beatCount = 1
+    divisionSetting.beatCount++
+    if (divisionSetting.silentBeatMode) divisionSetting.silentBitCount--
+    if (divisionSetting.beatCount === divisionSetting.division + 1) divisionSetting.beatCount = 1
 }
 
 function moveBpmRange() {
@@ -182,34 +190,36 @@ function volumeChange(ev) {
     else if (ev === 'down') val = 'down'
     else val = ev.target.dataset.value
     if (val === 'up') {
-        if (volume >= 1) return
-        else volume += 0.1
+        if (soundSetting.volume >= 1) return
+        else soundSetting.volume += 0.1
     }
     if (val === 'down') {
-        if (volume <= 0.3) return
-        else volume -= 0.1
+        if (soundSetting.volume <= 0.3) return
+        else soundSetting.volume -= 0.1
     }
 }
 
 function soundChange(ev) {
     const sound = ev.target.dataset.value;
-    if (sound === 'stick') {
-        primaryClick = './sound/stick.wav'
-        seconderyClick = './sound/stick-up.wav'
+    switch (sound) {
+        case 'stick':
+            soundSetting.primaryClick = './sound/stick.wav'
+            soundSetting.seconderyClick = './sound/stick-up.wav'
+            break
+        case 'cowbell':
+            soundSetting.primaryClick = './sound/bell.wav'
+            soundSetting.seconderyClick = './sound/bell-up.wav'
+            break
+        case 'met':
+            soundSetting.primaryClick = './sound/met.wav'
+            soundSetting.seconderyClick = './sound/met-up.wav'
+            break
+        case 'pulse':
+            soundSetting.primaryClick = './sound/digit.wav'
+            soundSetting.seconderyClick = './sound/digit-up.wav'
+            break
     }
-    if (sound === 'cowbell') {
-        primaryClick = './sound/bell.wav'
-        seconderyClick = './sound/bell-up.wav'
-    }
-    if (sound === 'met') {
-        primaryClick = './sound/met.wav'
-        seconderyClick = './sound/met-up.wav'
-    }
-    if (sound === 'pulse') {
-        primaryClick = './sound/digit.wav'
-        seconderyClick = './sound/digit-up.wav'
-    }
-    beatCount = 1
+    divisionSetting.beatCount = 1
 }
 
 function addSong() {
@@ -323,8 +333,8 @@ document.getElementById('volumeUp').addEventListener('click', volumeChange);
 document.getElementById('volumeDown').addEventListener('click', volumeChange);
 document.getElementById('add-song').addEventListener('click', addSong);
 document.getElementById('silent-mode').addEventListener('click', () => {
-    silentBeatMode = !silentBeatMode
-    if (silentBeatMode) document.querySelector('.silent-mode').classList.add('active')
+    divisionSetting.silentBeatMode = !divisionSetting.silentBeatMode
+    if (divisionSetting.silentBeatMode) document.querySelector('.silent-mode').classList.add('active')
     else document.querySelector('.silent-mode').classList.remove('active')
     start()
 })
@@ -382,7 +392,7 @@ tapTempoButton.addEventListener('click', function () {
 const bpmDivides = document.querySelectorAll('.divide-box span');
 bpmDivides.forEach((divide) => {
     divide.addEventListener('click', (ev) => {
-        division = +ev.target.dataset.value
+        divisionSetting.division = +ev.target.dataset.value
         start()
         bpmDivides.forEach((divide) => divide.classList.remove('active'));
         divide.classList.add('active');

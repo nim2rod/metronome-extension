@@ -101,6 +101,15 @@ button {
 
 .sound {
     height: 2.6em;
+    transform: scale(0.7);
+}
+
+.sound:active {
+    transform: scale(1);
+}
+
+.sound.active {
+    transform: scale(1);
 }
 
 .tap-tempo:active {

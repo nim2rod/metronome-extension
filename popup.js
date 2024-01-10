@@ -201,6 +201,8 @@ function volumeChange(ev) {
 
 function soundChange(ev) {
     const sound = ev.target.dataset.value;
+    document.querySelectorAll('.sound').forEach((img) => img.classList.remove('active'))
+    ev.target.classList.add('active')
     switch (sound) {
         case 'stick':
             soundSetting.primaryClick = './sound/stick.wav'
@@ -360,6 +362,7 @@ sounds.forEach(sound => {
 });
 document.querySelector('.bpm-show').innerHTML = document.getElementById("bpm").value
 
+// TAP TEMPO //
 const tapTempoButton = document.getElementById('tap-tempo');
 let tapTempoTimes = [];
 let lastTimeClicked = 0;
